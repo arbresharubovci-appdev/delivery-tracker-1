@@ -17,6 +17,7 @@
     </h2>
 
     <form action="/insert_tracker" method="post">
+         <input type="hidden" id="user_id_box" name="query_user_id" value="<%= session[:user_id] %>"> 
          <div>
         <label for="description_box">
           Description
@@ -32,14 +33,12 @@
         <input type="date" id="delivery_date_box" name="query_delivery_date">
       </div>
 
-        <div>
+      <div>
         <label for="detail_box">
-          Detail
+          Details
         </label>
         <textarea id="detail_box" name="query_detail" rows="3"></textarea>
       </div>
-
-      <input type="hidden" id="user_id_box" name="query_user_id" value="<%= session[:user_id] %>"> 
 
       <input type="hidden" id="status_box" name="query_status" value="waiting_on">
     </div>
@@ -51,7 +50,7 @@
 
 <hr>
 
-<div class="waiting_on">
+<div style="background-color: lightgoldenrodyellow" class="waiting_on">
   <h2>Waiting on</h2>
   <% @list_waiting_on.each do |a_tracker| %>
   <ul>
@@ -60,9 +59,20 @@
    <div>
    <%= a_tracker.description %>
    </div>
+   <%#= a_tracker.updated_at.strftime("%l:%M%P on %d-%b-%Y") %>
+   <div>
+   </div>
+    
+<%#= formatted_date = 3.days.from_now.strftime("%m/%d/%Y")%>
+   <% if a_tracker.delivery_date + 3.days.from_now.strftime("%m/%d/%Y") %>
    <div style="color :red">
    Supposed to arrive on  <%= a_tracker.delivery_date %>
    </div>
+   <% else %>
+   <div style="color :black">
+   Supposed to arrive on  <%= a_tracker.delivery_date %>
+   </div>
+   <% end %>
    <div>
    <%= a_tracker.detail %>
    </div>
@@ -80,7 +90,7 @@
 
 <hr>
 
-<div class="received">
+<div style="background-color: lightgreen" class="received">
 <h2>Received<h2>
 <% @list_of_received.each do |a_tracker| %>
 <ul>
