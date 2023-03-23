@@ -1,0 +1,105 @@
+<div>
+  <div>
+    <h1>
+      Delivery Tracker
+    </h1>
+
+    <p>Know if something gets lost in the mail.</p>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Expecting a package?
+    </h2>
+
+    <form action="/insert_tracker" method="post">
+         <div>
+        <label for="description_box">
+          Description
+        </label>
+        <input type="text" id="description_box" name="query_description">
+      </div>
+
+        <div>
+        <label for="delivery_date_box">
+          Supposed to arrive on
+        </label>
+
+        <input type="date" id="delivery_date_box" name="query_delivery_date">
+      </div>
+
+        <div>
+        <label for="detail_box">
+          Detail
+        </label>
+        <textarea id="detail_box" name="query_detail" rows="3"></textarea>
+      </div>
+
+      <input type="hidden" id="user_id_box" name="query_user_id" value="<%= session[:user_id] %>"> 
+
+      <input type="hidden" id="status_box" name="query_status" value="waiting_on">
+    </div>
+
+    <button>Log delivery</button>
+    </form>
+  </div>
+</div>
+
+<hr>
+
+<div class="waiting_on">
+  <h2>Waiting on</h2>
+  <% @list_waiting_on.each do |a_tracker| %>
+  <ul>
+  <li>
+   <% if a_tracker.status == "waiting_on" %>
+   <div>
+   <%= a_tracker.description %>
+   </div>
+   <div style="color :red">
+   Supposed to arrive on  <%= a_tracker.delivery_date %>
+   </div>
+   <div>
+   <%= a_tracker.detail %>
+   </div>
+   <form action="/modify_tracker/<%= a_tracker.id %>" method="post">
+   <input type="hidden" name="query_status" value="received">
+   <button>
+   Mark as received
+   </button>
+   </form>
+   <% end %>
+  </li>
+  </ul>
+  <% end %>
+</div>
+
+<hr>
+
+<div class="received">
+<h2>Received<h2>
+<% @list_of_received.each do |a_tracker| %>
+<ul>
+<li>
+<% if a_tracker.status == "received" %>
+<div>
+<%= a_tracker.description %>
+</div>
+<small>
+Updated <%= time_ago_in_words(a_tracker.updated_at) %> ago
+<a href="/delete_tracker/<%= a_tracker.id %>">Delete</a>
+</small>
+</li>
+<% end %>
+</ul>
+<% end %>
+</div>
+
+
+
+
+        
