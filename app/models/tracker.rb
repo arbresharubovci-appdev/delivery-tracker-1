@@ -12,4 +12,6 @@
 #  user_id       :integer
 #
 class Tracker < ApplicationRecord
+
+
 end

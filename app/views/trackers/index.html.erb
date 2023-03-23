@@ -59,20 +59,19 @@
    <div>
    <%= a_tracker.description %>
    </div>
-   <%#= a_tracker.updated_at.strftime("%l:%M%P on %d-%b-%Y") %>
-   <div>
-   </div>
-    
+   
+<%#= a_tracker.updated_at.strftime("%l:%M%P on %d-%b-%Y") %>
 <%#= formatted_date = 3.days.from_now.strftime("%m/%d/%Y")%>
-   <% if a_tracker.delivery_date + 3.days.from_now.strftime("%m/%d/%Y") %>
-   <div style="color :red">
-   Supposed to arrive on  <%= a_tracker.delivery_date %>
-   </div>
+<%# if a_tracker.delivery_date + 3.days.from_now.strftime("%m/%d/%Y") %>
+
+   <%if @three_days_ago > a_tracker.delivery_date.to_datetime %>
+   <div style="color :red;">
    <% else %>
-   <div style="color :black">
+   <div>
+   <% end %>
    Supposed to arrive on  <%= a_tracker.delivery_date %>
    </div>
-   <% end %>
+  
    <div>
    <%= a_tracker.detail %>
    </div>

@@ -7,17 +7,17 @@ class TrackersController < ApplicationController
     @list_of_trackers = matching_trackers.order({:created_at => :desc })
     @list_waiting_on = matching_trackers.where({ :status => "waiting_on"})
     @list_of_received = matching_trackers.where({ :status => "received"})
+
+    now = Date.today
+    @three_days_ago = now - 3
     
-
     render({ :template => "trackers/index.html.erb" })
-
-
 
     #@list_of_trackers = matching_trackers.order({ :created_at => :desc })
     #render({ :template => "trackers/index.html.erb" })
   end
 
-  
+ 
 
   def show
     the_id = params.fetch("path_id")
@@ -39,7 +39,7 @@ class TrackersController < ApplicationController
 
     if the_tracker.valid?
       the_tracker.save
-      redirect_to("/trackers", { :notice => "Tracker created successfully." })
+      redirect_to("/trackers", { :notice => "Added to list." })
     else
       redirect_to("/trackers", { :alert => the_tracker.errors.full_messages.to_sentence })
     end
@@ -56,7 +56,7 @@ class TrackersController < ApplicationController
     #the_tracker.description = params.fetch("query_description")
 
     if the_tracker.save
-      redirect_to("/trackers ", { :notice => "Tracker updated successfully."} )
+      redirect_to("/trackers ", { :notice => "Marked as received."} )
     else
       redirect_to("/trackers ", { :alert => the_tracker.errors.full_messages.to_sentence })
     end
@@ -68,6 +68,6 @@ class TrackersController < ApplicationController
 
     the_tracker.destroy
 
-    redirect_to("/trackers", { :notice => "Tracker deleted successfully."} )
+    redirect_to("/trackers", { :notice => "Deleted."} )
   end
 end
