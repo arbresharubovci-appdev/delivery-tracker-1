@@ -18,18 +18,17 @@
 
     <form action="/insert_tracker" method="post">
          <input type="hidden" id="user_id_box" name="query_user_id" value="<%= session[:user_id] %>"> 
-         <div>
+      <div>
         <label for="description_box">
           Description
         </label>
-        <input type="text" id="description_box" name="query_description">
+         <input type="text" id="description_box" name="query_description">
       </div>
 
-        <div>
+      <div>
         <label for="delivery_date_box">
           Supposed to arrive on
         </label>
-
         <input type="date" id="delivery_date_box" name="query_delivery_date">
       </div>
 
@@ -41,9 +40,8 @@
       </div>
 
       <input type="hidden" id="status_box" name="query_status" value="waiting_on">
-    </div>
-
-    <button>Log delivery</button>
+    
+       <button>Log delivery</button>
     </form>
   </div>
 </div>
@@ -51,64 +49,64 @@
 <hr>
 
 <div class="waiting_on">
-  <h2>Waiting on</h2>
-  <% @list_waiting_on.each do |a_tracker| %>
-  <ul>
-  <li>
-   <% if a_tracker.status == "waiting_on" %>
-   <div>
-   <%= a_tracker.description %>
-   </div>
-   
-<%#= a_tracker.updated_at.strftime("%l:%M%P on %d-%b-%Y") %>
-<%#= formatted_date = 3.days.from_now.strftime("%m/%d/%Y")%>
-<%# if a_tracker.delivery_date + 3.days.from_now.strftime("%m/%d/%Y") %>
-
-   <%if @three_days_ago > a_tracker.delivery_date.to_datetime %>
-   <div style="color :red;">
-   <% else %>
-   <div>
-   <% end %>
-   Supposed to arrive on  <%= a_tracker.delivery_date %>
-   </div>
+   <h2>Waiting on</h2>
+    <% @list_waiting_on.each do |a_tracker| %>
+    <ul>
+      <li>
+       <% if a_tracker.status == "waiting_on" %>
+        <div>
+         <%= a_tracker.description %>
+         </div>
+          <%if @three_days_ago > a_tracker.delivery_date.to_datetime %>
+          <div style="color :red;">
+           <% else %>
+          <div>
+           <% end %>
+            Supposed to arrive on  <%= a_tracker.delivery_date %>
+          </div>
   
-   <div>
-   <%= a_tracker.detail %>
-   </div>
-   <form action="/modify_tracker/<%= a_tracker.id %>" method="post">
-   <input type="hidden" name="query_status" value="received">
-   <button>
-   Mark as received
-   </button>
-   </form>
-   <% end %>
-  </li>
-  </ul>
+           <div>
+            <%= a_tracker.detail %>
+           </div>
+   
+          <form action="/modify_tracker/<%= a_tracker.id %>" method="post">
+            <input type="hidden" name="query_status" value="received">
+          
+             <button>
+              Mark as received
+             </button>
+          </form>
+            <% end %>
+      </li>
+    </ul>
   <% end %>
 </div>
 
 <hr>
 
 <div class="received">
-<h2>Received<h2>
-<% @list_of_received.each do |a_tracker| %>
-<ul>
-<li>
-<% if a_tracker.status == "received" %>
-<div>
-<%= a_tracker.description %>
+   <h2>Received<h2>
+    <% @list_of_received.each do |a_tracker| %>
+     <ul>
+      <li>
+       <% if a_tracker.status == "received" %>
+        <div>
+         <%= a_tracker.description %>
+        </div>
+
+        <small>
+           Updated <%= time_ago_in_words(a_tracker.updated_at) %> ago
+            <a href="/delete_tracker/<%= a_tracker.id %>">Delete</a>
+        </small>
+      </li>
+       <% end %>
+     </ul>
+    <% end %>
 </div>
-<small>
-Updated <%= time_ago_in_words(a_tracker.updated_at) %> ago
-<a href="/delete_tracker/<%= a_tracker.id %>">Delete</a>
-</small>
-</li>
-<% end %>
-</ul>
-<% end %>
-</div>
 
 
-
+<%#= a_tracker.updated_at.strftime("%l:%M%P on %d-%b-%Y") %>
+<%#= formatted_date = 3.days.from_now.strftime("%m/%d/%Y")%>
+<%# if a_tracker.delivery_date + 3.days.from_now.strftime("%m/%d/%Y") %>
 
         
