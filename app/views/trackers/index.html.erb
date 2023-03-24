@@ -40,8 +40,7 @@
       </div>
 
       <input type="hidden" id="status_box" name="query_status" value="waiting_on">
-    
-       <button>Log delivery</button>
+      <button>Log delivery</button>
     </form>
   </div>
 </div>
@@ -71,12 +70,10 @@
    
           <form action="/modify_tracker/<%= a_tracker.id %>" method="post">
             <input type="hidden" name="query_status" value="received">
-          
-             <button>
-              Mark as received
-             </button>
+            <button>Mark as received</button>
           </form>
-            <% end %>
+          <% end %>
+        </div>
       </li>
     </ul>
   <% end %>
@@ -86,22 +83,22 @@
 
 <div class="received">
    <h2>Received<h2>
-    <% @list_of_received.each do |a_tracker| %>
      <ul>
-      <li>
-       <% if a_tracker.status == "received" %>
-        <div>
-         <%= a_tracker.description %>
-        </div>
+      <% @list_of_received.each do |a_tracker| %>
+        <% if a_tracker.status == "received" %>
+        <li>
+          <div>
+          <%= a_tracker.description %>
+          </div>
 
-        <small>
-           Updated <%= time_ago_in_words(a_tracker.updated_at) %> ago
-            <a href="/delete_tracker/<%= a_tracker.id %>">Delete</a>
-        </small>
-      </li>
-       <% end %>
+          <small>
+            Updated <%= time_ago_in_words(a_tracker.updated_at) %> ago
+              <a href="/delete_tracker/<%= a_tracker.id %>">Delete</a>
+          </small>
+        </li>
+        <% end %>
+      <% end %>
      </ul>
-    <% end %>
 </div>
 
 
