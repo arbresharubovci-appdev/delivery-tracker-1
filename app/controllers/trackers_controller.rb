@@ -1,7 +1,11 @@
 class TrackersController < ApplicationController
+  require "date"
+  
   def index
-    #matching_trackers = Tracker.all
 
+    matching_trackers = Tracker.all
+
+  
     matching_trackers = Tracker.where({:user_id => session.fetch(:user_id) })
     
     @list_of_trackers = matching_trackers.order({:created_at => :desc })
@@ -13,8 +17,6 @@ class TrackersController < ApplicationController
     
     render({ :template => "trackers/index.html.erb" })
 
-    #@list_of_trackers = matching_trackers.order({ :created_at => :desc })
-    #render({ :template => "trackers/index.html.erb" })
   end
 
  
@@ -54,6 +56,7 @@ class TrackersController < ApplicationController
     #the_tracker.delivery_date = params.fetch("query_delivery_date")
     #the_tracker.detail = params.fetch("query_detail")
     #the_tracker.description = params.fetch("query_description")
+   
 
     if the_tracker.save
       redirect_to("/trackers ", { :notice => "Marked as received."} )
