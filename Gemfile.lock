@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: https://github.com/firstdraft/grade_runner.git
-  revision: f39b09a16e937f9219f1201113ff23ce2a67e75d
+  revision: e19ab1764a5a4e0a89731fcab76e352d60240ddf
   specs:
     grade_runner (0.0.5)
       faraday-retry (~> 1.0.3)
@@ -96,7 +96,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
-    addressable (2.8.1)
+    addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     amazing_print (1.4.0)
     annotate (3.2.0)
